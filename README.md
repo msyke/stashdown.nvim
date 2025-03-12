@@ -1,4 +1,10 @@
-# Stashdown.nvim - A Lightweight Markdown Note Taking Tool for Neovim
+# stashdown.nvim
+
+A Lightweight Markdown Note Taking Tool for Neovim. The idea behind this plugin is to mirror the
+functionality of the ill-fated note taking app stashpad. Instead of running it in a separate appliaction
+though, here it's a part of your neovim editor editing simple markdown files. When in a notes file,
+simply invoke the new entry functionality and you'll have a timestamped note created with insert mode
+ready to input text.
 
 ## Install
 
@@ -52,7 +58,7 @@ Using lazy.nvim allows us to manage the plugin. Use the following lazy config:
 
 ## Usage
 
-Basic commands available through Neovim's input interface, or in lua
+Basic commands available through Neovim's command interface, or in lua
 
 1. Create new note:
 
