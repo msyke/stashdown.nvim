@@ -2,17 +2,12 @@
 
 ## Install
 
-Using lazy.nvim allows us to manage the plugin as a local dependency without requiring global installation.
+Using lazy.nvim allows us to manage the plugin. Use the following lazy config:
 
-1. First, ensure you have lazynomad installed:
-```bash
+```lua
 ~/.config/nvim/lazy install
 ```
 
-2. Clone this plugin into your Neovim's lazy directory:
-```bash
-git clone https://github.com/yourusername/stashdown.nvim.git ~/.config/nvim/lazy/stashdown.nvim
-```
 
 ### Requirements
 - Neovim 0.9 or later with Lua support
