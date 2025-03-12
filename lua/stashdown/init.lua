@@ -195,8 +195,9 @@ end
 
 return {
     setup = setup,
+    new_file = new_file,
     insert_image = insert_image,
+    new_entry = new_entry,
     archive_file = archive_file,
     copy_file = copy_file,
-    new_file = new_file,
 }

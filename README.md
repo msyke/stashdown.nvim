@@ -57,11 +57,13 @@ Basic commands available through Neovim's input interface, or in lua
 1. Create new note:
 
 Vim Command:
+
 ```bash
 :Stashdown nf
 ```
 
 Lua:
+
 ```lua
 local sd = require("stashdown.nvim")
 sd.new_file(file_name, doc_title)
@@ -70,11 +72,13 @@ sd.new_file(file_name, doc_title)
 2. Insert image:
 
 Vim Command:
+
 ```bash
 :Stashdown ii
 ```
 
 Lua:
+
 ```lua
 local sd = require("stashdown.nvim")
 sd.insert_image(buff_num)
@@ -83,52 +87,29 @@ sd.insert_image(buff_num)
 3. New entry in current buffer:
 
 Vim Command:
-```bash
-:call stashdown#new_entry "ne"
-```
-
-4. Archive file:
 
 ```bash
-:call stashdown#archive_file "a"
+:Stashdown ne
 ```
 
-## Configuration
-
-While not strictly required, you can configure the plugin by editing your Neovim configuration file:
+Lua:
 
 ```lua
-vim.fn(u) -- Lua function to be implemented
+local sd = require("stashdown.nvim")
+sd.new_entry(buff_num)
 ```
 
-## Documentation
+4. Archive currently open file:
 
-Here are the main functions available in stashdown.nvim:
-
-- `new_file`: Creates a new markdown file with title and metadata
-- `new_entry`: Adds a new entry to the current buffer with date formatting
-- `insert_image`: Handles image file location and organization
-- `archive_file`: Archives notes into defined directory structure
-- `copy_file`: Auxiliary function for file copying (not directly user-facing)
-
-## Example Workflows
-
-1. Create a note:
+Vim Command:
 
 ```bash
-:call stashdown#setup "nf"
+:Stashdown a
 ```
 
-2. Add an image to your note:
+Lua:
 
-```bash
-:call stashdown#insert_image "ii"
+```lua
+local sd = require("stashdown.nvim")
+sd.archive_file()
 ```
-
-3. When done with the note:
-
-```bash
-:call stashdown#archive_file "a"
-```
-
-This plugin provides a flexible yet lightweight way to manage your markdown notes directly within Neovim.
