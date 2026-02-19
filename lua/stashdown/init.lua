@@ -79,6 +79,39 @@ local function copy_file(old_path, new_path)
     return new_file_sz == old_file_sz
 end
 
+local function escape_lua_pattern(value)
+    return (value:gsub("([%%%^%$%(%)%%.%[%]%*%+%-%?])", "%%%1"))
+end
+
+local function reassociate_relative_paths_for_archive(file_path, current_file_path)
+    local file = io.open(file_path, "r")
+    if file == nil then
+        return
+    end
+
+    local content = file:read("*a")
+    file:close()
+
+    local updated_content = content:gsub("%(%./", "(../")
+    local escaped_current_file_path = escape_lua_pattern(current_file_path)
+    updated_content = updated_content:gsub(
+        "%(%.%./" .. escaped_current_file_path .. "%-assets/",
+        "(./" .. current_file_path .. "-assets/"
+    )
+
+    if updated_content == content then
+        return
+    end
+
+    local writable_file = io.open(file_path, "w")
+    if writable_file == nil then
+        return
+    end
+
+    writable_file:write(updated_content)
+    writable_file:close()
+end
+
 local function archive_file()
     local archive_dir = vim.fn.expand("%:p:h") .. "/archive"
 
@@ -96,7 +129,12 @@ local function archive_file()
     end
 
     local current_file_name = "" .. vim.fn.expand("%:p")
-    vim.fn.rename(current_file_name, archive_dir .. "/" .. vim.fn.expand("%:t"))
+    local archived_file_name = archive_dir .. "/" .. vim.fn.expand("%:t")
+    local file_rename_succeeded = vim.fn.rename(current_file_name, archived_file_name)
+    if file_rename_succeeded == 0 then
+        reassociate_relative_paths_for_archive(archived_file_name, current_file_path)
+    end
+
     vim.cmd("bd")
 end
 
